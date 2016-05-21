@@ -78,7 +78,7 @@ namespace FacebookSmartView
 
 		private void fetchUserInfo()
 		{
-			fetchUserPrivateDetails();
+			new Thread(fetchUserPrivateDetails).Start();
 			fetchNewsFeed();
 		}
 
@@ -172,14 +172,14 @@ namespace FacebookSmartView
 		
 		private void listBoxNewsFeed_SelectedIndexChanged(object sender, EventArgs e)
 		{
-            pictureBoxPostImage.Image = null;
+			pictureBoxPostImage.Image = null;
 
-            if (listBoxNewsFeed.SelectedItems.Count == 1)
+			if (listBoxNewsFeed.SelectedItems.Count == 1)
 			{
-                if (picturePostURLTextBox.Text != String.Empty)
-                {
-                    pictureBoxPostImage.LoadAsync(picturePostURLTextBox.Text);
-                }
+				if (picturePostURLTextBox.Text != String.Empty)
+				{
+					pictureBoxPostImage.LoadAsync(picturePostURLTextBox.Text);
+				}
 			}
 		}
 

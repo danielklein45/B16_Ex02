@@ -73,8 +73,7 @@ namespace FacebookSmartView
 
         private void initiateForm(object sender, EventArgs e)
         {
-            Thread thread = new Thread(m_MainForm.InitiateForm);
-            thread.Start();
+            new Thread(m_MainForm.InitiateForm).Start();
         }
 
         private void mainForm_ehMainFormLoad(object sender, MainFormLoadEventArgs e)
@@ -83,12 +82,12 @@ namespace FacebookSmartView
             {
                 if ((e.Message != null) && (e.Message.Length > 0))
                 {
-                    m_FormLoader.LoadingLabel = e.Message;
+                    m_FormLoader.Invoke(new Action(() => m_FormLoader.LoadingLabel = e.Message));
                 }
 
                 if (e.FinishedLoading)
                 {
-                    m_FormLoader.FinishLoading();
+                    m_FormLoader.Invoke(new Action(() => m_FormLoader.FinishLoading()));
                 }
             }
         }
