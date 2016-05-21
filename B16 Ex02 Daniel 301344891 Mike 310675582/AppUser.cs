@@ -27,7 +27,7 @@ namespace FacebookSmartView
 
         public FacebookObjectCollection<Post> GetNewsFeed(PostFilter i_PostFilter)
         {
-            FacebookObjectCollection<Post> postToDisplay = new FacebookObjectCollection<Post>();
+            FacebookObjectCollection<Post> postsToDisplay = new FacebookObjectCollection<Post>();
 
             IEnumerable<Post> queryPostToDisplay;
 
@@ -43,10 +43,10 @@ namespace FacebookSmartView
 
             foreach (Post post in queryPostToDisplay)
             {
-                postToDisplay.Add(post);
+                postsToDisplay.Add(post);
             }
 
-            return postToDisplay;
+            return postsToDisplay;
         }
        
         private string getLastEdu(Education[] i_EducationForUser)
