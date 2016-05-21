@@ -59,12 +59,12 @@
             this.buttonFilterPostSettings = new System.Windows.Forms.Button();
             this.lblNewsFeedActions = new System.Windows.Forms.Label();
             this.panelPostDetails = new System.Windows.Forms.Panel();
+            this.picturePostURLTextBox = new System.Windows.Forms.TextBox();
             this.pictureBoxPostImage = new System.Windows.Forms.PictureBox();
             this.createdTimeDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.lblHeaderPostDetails = new System.Windows.Forms.Label();
             this.buttonSignOff = new System.Windows.Forms.Button();
-            this.picturePostURLTextBox = new System.Windows.Forms.TextBox();
             createdTimeLabel = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.postBindingSource)).BeginInit();
@@ -87,6 +87,15 @@
             createdTimeLabel.Size = new System.Drawing.Size(60, 13);
             createdTimeLabel.TabIndex = 2;
             createdTimeLabel.Text = "Posted On:";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(4, 98);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(68, 13);
+            label1.TabIndex = 10;
+            label1.Text = "Picture URL:";
             // 
             // nameLabel
             // 
@@ -365,6 +374,14 @@
             this.panelPostDetails.Size = new System.Drawing.Size(302, 240);
             this.panelPostDetails.TabIndex = 22;
             // 
+            // picturePostURLTextBox
+            // 
+            this.picturePostURLTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.postBindingSource, "PictureURL", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "No URL available"));
+            this.picturePostURLTextBox.Location = new System.Drawing.Point(82, 98);
+            this.picturePostURLTextBox.Name = "picturePostURLTextBox";
+            this.picturePostURLTextBox.Size = new System.Drawing.Size(200, 20);
+            this.picturePostURLTextBox.TabIndex = 9;
+            // 
             // pictureBoxPostImage
             // 
             this.pictureBoxPostImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
@@ -410,23 +427,6 @@
             this.buttonSignOff.Text = "Sign Off";
             this.buttonSignOff.UseVisualStyleBackColor = true;
             this.buttonSignOff.Click += new System.EventHandler(this.buttonSignOff_Click);
-            // 
-            // picturePostURLTextBox
-            // 
-            this.picturePostURLTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.postBindingSource, "PictureURL", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "No URL available"));
-            this.picturePostURLTextBox.Location = new System.Drawing.Point(82, 98);
-            this.picturePostURLTextBox.Name = "picturePostURLTextBox";
-            this.picturePostURLTextBox.Size = new System.Drawing.Size(200, 20);
-            this.picturePostURLTextBox.TabIndex = 9;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(4, 98);
-            label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(68, 13);
-            label1.TabIndex = 10;
-            label1.Text = "Picture URL:";
             // 
             // FormMain
             // 
