@@ -28,8 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.Label createdTimeLabel;
+            System.Windows.Forms.Label label1;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
+            this.nameLabel = new System.Windows.Forms.Label();
             this.listBoxNewsFeed = new System.Windows.Forms.ListBox();
+            this.postBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.textBoxPostMessage = new System.Windows.Forms.TextBox();
             this.pbUserPicture = new System.Windows.Forms.PictureBox();
             this.lblHello = new System.Windows.Forms.Label();
@@ -54,10 +59,15 @@
             this.buttonFilterPostSettings = new System.Windows.Forms.Button();
             this.lblNewsFeedActions = new System.Windows.Forms.Label();
             this.panelPostDetails = new System.Windows.Forms.Panel();
-            this.lblHeaderPostDetails = new System.Windows.Forms.Label();
-            this.lblPostDetails = new System.Windows.Forms.Label();
             this.pictureBoxPostImage = new System.Windows.Forms.PictureBox();
+            this.createdTimeDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.nameTextBox = new System.Windows.Forms.TextBox();
+            this.lblHeaderPostDetails = new System.Windows.Forms.Label();
             this.buttonSignOff = new System.Windows.Forms.Button();
+            this.picturePostURLTextBox = new System.Windows.Forms.TextBox();
+            createdTimeLabel = new System.Windows.Forms.Label();
+            label1 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.postBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbUserPicture)).BeginInit();
             this.panelMostPopular.SuspendLayout();
             this.gpTopPhotosInfoBox.SuspendLayout();
@@ -69,9 +79,29 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPostImage)).BeginInit();
             this.SuspendLayout();
             // 
+            // createdTimeLabel
+            // 
+            createdTimeLabel.AutoSize = true;
+            createdTimeLabel.Location = new System.Drawing.Point(3, 67);
+            createdTimeLabel.Name = "createdTimeLabel";
+            createdTimeLabel.Size = new System.Drawing.Size(60, 13);
+            createdTimeLabel.TabIndex = 2;
+            createdTimeLabel.Text = "Posted On:";
+            // 
+            // nameLabel
+            // 
+            this.nameLabel.AutoSize = true;
+            this.nameLabel.Location = new System.Drawing.Point(3, 38);
+            this.nameLabel.Name = "nameLabel";
+            this.nameLabel.Size = new System.Drawing.Size(58, 13);
+            this.nameLabel.TabIndex = 6;
+            this.nameLabel.Text = "Posted By:";
+            // 
             // listBoxNewsFeed
             // 
             this.listBoxNewsFeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxNewsFeed.DataSource = this.postBindingSource;
+            this.listBoxNewsFeed.DisplayMember = "Message";
             this.listBoxNewsFeed.FormattingEnabled = true;
             this.listBoxNewsFeed.HorizontalScrollbar = true;
             this.listBoxNewsFeed.Location = new System.Drawing.Point(3, 32);
@@ -80,6 +110,10 @@
             this.listBoxNewsFeed.Size = new System.Drawing.Size(428, 394);
             this.listBoxNewsFeed.TabIndex = 0;
             this.listBoxNewsFeed.SelectedIndexChanged += new System.EventHandler(this.listBoxNewsFeed_SelectedIndexChanged);
+            // 
+            // postBindingSource
+            // 
+            this.postBindingSource.DataSource = typeof(FacebookWrapper.ObjectModel.Post);
             // 
             // textBoxPostMessage
             // 
@@ -318,13 +352,44 @@
             // 
             // panelPostDetails
             // 
-            this.panelPostDetails.Controls.Add(this.lblHeaderPostDetails);
-            this.panelPostDetails.Controls.Add(this.lblPostDetails);
+            this.panelPostDetails.Controls.Add(label1);
+            this.panelPostDetails.Controls.Add(this.picturePostURLTextBox);
             this.panelPostDetails.Controls.Add(this.pictureBoxPostImage);
-            this.panelPostDetails.Location = new System.Drawing.Point(433, 74);
+            this.panelPostDetails.Controls.Add(createdTimeLabel);
+            this.panelPostDetails.Controls.Add(this.createdTimeDateTimePicker);
+            this.panelPostDetails.Controls.Add(this.nameLabel);
+            this.panelPostDetails.Controls.Add(this.nameTextBox);
+            this.panelPostDetails.Controls.Add(this.lblHeaderPostDetails);
+            this.panelPostDetails.Location = new System.Drawing.Point(432, 74);
             this.panelPostDetails.Name = "panelPostDetails";
-            this.panelPostDetails.Size = new System.Drawing.Size(291, 240);
+            this.panelPostDetails.Size = new System.Drawing.Size(302, 240);
             this.panelPostDetails.TabIndex = 22;
+            // 
+            // pictureBoxPostImage
+            // 
+            this.pictureBoxPostImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.pictureBoxPostImage.Location = new System.Drawing.Point(82, 125);
+            this.pictureBoxPostImage.Name = "pictureBoxPostImage";
+            this.pictureBoxPostImage.Size = new System.Drawing.Size(131, 84);
+            this.pictureBoxPostImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxPostImage.TabIndex = 0;
+            this.pictureBoxPostImage.TabStop = false;
+            // 
+            // createdTimeDateTimePicker
+            // 
+            this.createdTimeDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.postBindingSource, "CreatedTime", true));
+            this.createdTimeDateTimePicker.Location = new System.Drawing.Point(82, 63);
+            this.createdTimeDateTimePicker.Name = "createdTimeDateTimePicker";
+            this.createdTimeDateTimePicker.Size = new System.Drawing.Size(200, 20);
+            this.createdTimeDateTimePicker.TabIndex = 3;
+            // 
+            // nameTextBox
+            // 
+            this.nameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.postBindingSource, "Name", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "Unknown"));
+            this.nameTextBox.Location = new System.Drawing.Point(82, 35);
+            this.nameTextBox.Name = "nameTextBox";
+            this.nameTextBox.Size = new System.Drawing.Size(200, 20);
+            this.nameTextBox.TabIndex = 7;
             // 
             // lblHeaderPostDetails
             // 
@@ -336,26 +401,6 @@
             this.lblHeaderPostDetails.TabIndex = 2;
             this.lblHeaderPostDetails.Text = "Post Details";
             // 
-            // lblPostDetails
-            // 
-            this.lblPostDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.lblPostDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.lblPostDetails.Location = new System.Drawing.Point(13, 29);
-            this.lblPostDetails.Name = "lblPostDetails";
-            this.lblPostDetails.Size = new System.Drawing.Size(266, 58);
-            this.lblPostDetails.TabIndex = 1;
-            this.lblPostDetails.Text = "<details>";
-            this.lblPostDetails.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // pictureBoxPostImage
-            // 
-            this.pictureBoxPostImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.pictureBoxPostImage.Location = new System.Drawing.Point(116, 90);
-            this.pictureBoxPostImage.Name = "pictureBoxPostImage";
-            this.pictureBoxPostImage.Size = new System.Drawing.Size(172, 147);
-            this.pictureBoxPostImage.TabIndex = 0;
-            this.pictureBoxPostImage.TabStop = false;
-            // 
             // buttonSignOff
             // 
             this.buttonSignOff.Location = new System.Drawing.Point(1078, 20);
@@ -365,6 +410,23 @@
             this.buttonSignOff.Text = "Sign Off";
             this.buttonSignOff.UseVisualStyleBackColor = true;
             this.buttonSignOff.Click += new System.EventHandler(this.buttonSignOff_Click);
+            // 
+            // picturePostURLTextBox
+            // 
+            this.picturePostURLTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.postBindingSource, "PictureURL", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "No URL available"));
+            this.picturePostURLTextBox.Location = new System.Drawing.Point(82, 98);
+            this.picturePostURLTextBox.Name = "picturePostURLTextBox";
+            this.picturePostURLTextBox.Size = new System.Drawing.Size(200, 20);
+            this.picturePostURLTextBox.TabIndex = 9;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(4, 98);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(68, 13);
+            label1.TabIndex = 10;
+            label1.Text = "Picture URL:";
             // 
             // FormMain
             // 
@@ -391,6 +453,7 @@
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Facebook Smart View";
+            ((System.ComponentModel.ISupportInitialize)(this.postBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbUserPicture)).EndInit();
             this.panelMostPopular.ResumeLayout(false);
             this.gpTopPhotosInfoBox.ResumeLayout(false);
@@ -439,8 +502,12 @@
         private System.Windows.Forms.Panel panelPostDetails;
         private System.Windows.Forms.PictureBox pictureBoxPostImage;
         private System.Windows.Forms.Label lblHeaderPostDetails;
-        private System.Windows.Forms.Label lblPostDetails;
         private System.Windows.Forms.Button buttonSignOff;
+        private System.Windows.Forms.DateTimePicker createdTimeDateTimePicker;
+        private System.Windows.Forms.BindingSource postBindingSource;
+        private System.Windows.Forms.TextBox nameTextBox;
+        private System.Windows.Forms.Label nameLabel;
+        private System.Windows.Forms.TextBox picturePostURLTextBox;
     }
 }
 

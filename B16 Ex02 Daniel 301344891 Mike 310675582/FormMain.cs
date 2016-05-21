@@ -84,6 +84,7 @@ namespace FacebookSmartView
 
 		private void fetchNewsFeed()
 		{
+			
 			PostFilter filter = null;
 
 			if (checkBoxFilterPosts.Checked)
@@ -91,9 +92,7 @@ namespace FacebookSmartView
 				filter = m_PostFilter;
 			}
 
-			listBoxNewsFeed.DataSource = m_AppUser.GetNewsFeed(filter);
-			listBoxNewsFeed.DisplayMember = "Message";
-			listBoxNewsFeed.ValueMember = "UpdateTime";
+			postBindingSource.DataSource = m_AppUser.GetNewsFeed(filter);
 		}
 
 		private void fetchUserPrivateDetails()
@@ -170,28 +169,17 @@ namespace FacebookSmartView
 			fetchNewsFeed();
 		}
 
+		
 		private void listBoxNewsFeed_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (listBoxNewsFeed.SelectedItems.Count == 1)
+            pictureBoxPostImage.Image = null;
+
+            if (listBoxNewsFeed.SelectedItems.Count == 1)
 			{
-				Post selectedPost = listBoxNewsFeed.SelectedItem as Post;
-				string postDetails = string.Empty;
-
-				if (selectedPost != null)
-				{
-					if (selectedPost.PictureURL != null)
-					{
-						pictureBoxPostImage.Load(selectedPost.PictureURL);
-						postDetails = string.Format("Posted by: {0}\nOn Date: {1}", selectedPost.From.Name, selectedPost.CreatedTime.ToString());
-					}
-					else
-					{
-						pictureBoxPostImage.Image = null;
-						postDetails = "No picture available";
-					}
-				}
-
-				lblPostDetails.Text = postDetails;
+                if (picturePostURLTextBox.Text != String.Empty)
+                {
+                    pictureBoxPostImage.LoadAsync(picturePostURLTextBox.Text);
+                }
 			}
 		}
 
