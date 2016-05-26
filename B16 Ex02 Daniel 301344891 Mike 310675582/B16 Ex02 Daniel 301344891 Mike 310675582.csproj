@@ -64,6 +64,7 @@
     <Compile Include="FormLoader.Designer.cs">
       <DependentUpon>FormLoader.cs</DependentUpon>
     </Compile>
+    <Compile Include="ClonePrototype.cs" />
     <Compile Include="LoginLogic.cs" />
     <Compile Include="FilterGroup.cs" />
     <Compile Include="FormFilterGroup.cs">
@@ -105,6 +106,7 @@
     <Compile Include="SpecialPictureBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="PictureBoxPrototypeFactory.cs" />
     <Compile Include="TopPhotosFeature.cs" />
     <EmbeddedResource Include="FormLoader.resx">
       <DependentUpon>FormLoader.cs</DependentUpon>

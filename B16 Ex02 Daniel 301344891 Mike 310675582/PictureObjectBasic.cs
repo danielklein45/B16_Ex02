@@ -5,6 +5,7 @@ using System.Text;
 
 namespace FacebookSmartView
 {
+    [Serializable]
     class PictureObjectBasic
     {
         public int NumberOfLikes { get; set; }

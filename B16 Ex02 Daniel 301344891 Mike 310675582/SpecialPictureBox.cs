@@ -7,14 +7,20 @@ using System.Windows.Forms;
 
 namespace FacebookSmartView
 {
+    [Serializable]
     partial class SpecialPictureBox : PictureBox
     {
+        #region Private Members
+
         private Panel m_FatherPanel;
         private Panel m_BoxPanel;
         private Label m_BotLabel;
         private PictureObject m_PoPictureObjectID;
 
-        private static readonly Size sr_PictureBoxTopPhotosSize = new Size(175, 165);
+        #endregion
+
+
+        #region Const region
 
         private const int k_LabelHeight = 20;
         private const int k_LabelSpacer = 3;
@@ -23,10 +29,18 @@ namespace FacebookSmartView
         private const String k_GeneralPanelName = "_Panel";
         private const String k_PanelName = "_Label";
 
+        #endregion
+
+        #region Panel And Picture sizes
+
         private readonly Size r_PanelSize = new Size(sr_PictureBoxTopPhotosSize.Width, k_LabelHeight);
         private readonly Point r_PanelStartLoc = new Point(0, sr_PictureBoxTopPhotosSize.Height - k_LabelHeight);
         private readonly Size r_PictureSize = new Size(sr_PictureBoxTopPhotosSize.Width, sr_PictureBoxTopPhotosSize.Height - k_LabelHeight);
         private readonly Point r_PictureStartLoc = new Point(0, 0);
+        private static readonly Size sr_PictureBoxTopPhotosSize = new Size(175, 165);
+
+        #endregion
+
 
         public SpecialPictureBox(Panel i_FatherPanel)
         {
@@ -48,6 +62,8 @@ namespace FacebookSmartView
             m_BoxPanel = new Panel();
             m_BoxPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             m_BoxPanel.Size = sr_PictureBoxTopPhotosSize;
+
+
             m_BoxPanel.Controls.Add(this);
             m_BoxPanel.Controls.Add(m_BotLabel);
 
@@ -97,7 +113,7 @@ namespace FacebookSmartView
 
             m_FatherPanel.Controls.Remove(m_BoxPanel);
         }
-       
+
         protected override void OnMouseHover(EventArgs e)
         {
             m_BotLabel.BackColor = Color.LightSkyBlue;
@@ -110,52 +126,53 @@ namespace FacebookSmartView
             base.OnMouseLeave(e);
         }
 
-        public Point ObjectLocation 
-        { 
-            get 
-            { 
+        public Point ObjectLocation
+        {
+            get
+            {
                 return this.Location;
-            } 
-            set 
-            { 
+            }
+            set
+            {
                 this.m_BoxPanel.Location = value;
-            } 
+            }
         }
 
         public static Size PictureBoxTopPhotosSize
         {
             get
-            { 
+            {
                 return sr_PictureBoxTopPhotosSize;
-            } 
+            }
         }
 
-        public PictureObject PictureObject 
-        { 
+        public PictureObject PictureObject
+        {
             get
-            { 
+            {
                 return this.m_PoPictureObjectID;
-            } 
-            set 
-            { 
+            }
+            set
+            {
                 this.m_PoPictureObjectID = value;
-            } 
+            }
         }
 
         public Panel FatherPanel
         {
-            get 
-            { 
+            get
+            {
                 return m_FatherPanel;
-            } 
+            }
         }
 
-        public Label PicLabel 
-        { 
-            get 
-            { 
+        public Label PicLabel
+        {
+            get
+            {
                 return m_BotLabel;
-            } 
+            }
         }
+
     }
 }

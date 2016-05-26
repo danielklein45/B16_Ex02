@@ -105,12 +105,19 @@ namespace FacebookSmartView
             {
                 if (getNextFreeLocationInContainer(SpecialPictureBox.PictureBoxTopPhotosSize, out pNewPointForPicture))
                 {
-                    i_NewPicObject.PictureObject = new PictureObject(string.Empty, 0,
-                                                                     0, 0, string.Empty,
-                                                                     string.Empty, i_NewPicObject, i_NewPicObject.PicLabel);
+                    //i_NewPicObject.PictureObject = new PictureObject(string.Empty, 0,
+                    //                                                 0, 0, string.Empty,
+                    //                                                 string.Empty); -> Changed to Prototype Factory
+
+                    i_NewPicObject.PictureObject = PictureObjectPrototypeFactory.Instance.GetPictureObjectBasic();
+                    i_NewPicObject.PictureObject.SetGraphicProperties(i_NewPicObject, i_NewPicObject.PicLabel);
+
                     i_NewPicObject.ObjectLocation = pNewPointForPicture;
                     i_NewPicObject.UpdateNames(m_LstPictureBoxFromForm.Count);
                     m_LstPictureBoxFromForm.Add(i_NewPicObject);
+
+
+                    
 
                     isAdded = true;
                 }
