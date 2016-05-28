@@ -11,7 +11,7 @@ using FacebookWrapper.ObjectModel;
 
 namespace FacebookSmartView
 {
-    public class FilterItem : IXmlSerializable
+    public class FilterItem : IXmlSerializable, IFilter
     {
         private Regex m_Regex;
         private static readonly string sr_FilterTextAttribute = "TextToFilter";
