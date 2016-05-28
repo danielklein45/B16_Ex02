@@ -16,6 +16,7 @@ namespace FacebookSmartView
         public FormFilterGroup()
         {
             InitializeComponent();
+            GroupFilter = new FilterGroup();
         }
 
         protected override void OnLoad(EventArgs e)
@@ -23,7 +24,7 @@ namespace FacebookSmartView
             base.OnLoad(e);
             textBoxGroupName.Text = GroupFilter.Name;
 
-            foreach (FilterItem item in GroupFilter)
+            foreach (IFilter item in GroupFilter)
             {
                 checkedListFilterItems.Items.Add(item);
             }
@@ -34,8 +35,7 @@ namespace FacebookSmartView
             if (!string.IsNullOrEmpty(textBoxFilterItem.Text))
             {
                 FilterItem newItem = new FilterItem(textBoxFilterItem.Text);
-                GroupFilter.AddItem(newItem);
-                checkedListFilterItems.Items.Add(newItem);
+                addItem(newItem);
 
                 textBoxFilterItem.Text = String.Empty;
             }
@@ -62,7 +62,7 @@ namespace FacebookSmartView
 
         private void buttonRemoveItems_Click(object sender, EventArgs e)
         {
-            FilterItem filterItem = (FilterItem)checkedListFilterItems.SelectedItem;
+            IFilter filterItem = (IFilter)checkedListFilterItems.SelectedItem;
 
             if (filterItem != null)
             {
@@ -73,6 +73,36 @@ namespace FacebookSmartView
             {
                 MessageBox.Show("At least one item must be selected");
             }
+        }
+
+        private void buttonAddInnerGroup_Click(object sender, EventArgs e)
+        {
+            FormFilterGroup innerForm = new FormFilterGroup();
+            innerForm.ShowDialog();
+            addItem(innerForm.GroupFilter);
+        }
+
+        private void addItem(IFilter i_Filter)
+        {
+            GroupFilter.AddItem(i_Filter);
+            checkedListFilterItems.Items.Add(i_Filter);
+        }
+
+        private void checkedListFilterItems_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            IFilter filter = (IFilter)checkedListFilterItems.SelectedItem;
+            if (filter != null)
+            {
+                textBoxFilterItem.Text = filter.ToString();
+            }   
+        }
+
+        private void buttonEditItem_Click(object sender, EventArgs e)
+        {
+            IFilter filterItem = (IFilter)checkedListFilterItems.SelectedItem;
+            FormFilterGroup innerForm = new FormFilterGroup();
+            innerForm.GroupFilter = filterItem as FilterGroup;
+            innerForm.ShowDialog();
         }
     }
 }

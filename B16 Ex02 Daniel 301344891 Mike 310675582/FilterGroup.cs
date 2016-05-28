@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
@@ -11,25 +12,26 @@ using FacebookWrapper.ObjectModel;
 
 namespace FacebookSmartView
 {
-    public class FilterGroup : IEnumerable, IXmlSerializable
+    public class FilterGroup : IEnumerable, IXmlSerializable, IFilter
     {
-        private IList<FilterItem> m_FilterItems;
+        private IList<IFilter> m_FilterItems;
         private static readonly string sr_GroupNameAttribute = "Name";
-        private static readonly string sr_FilterItemElement = "FilterItem";
+        private const string sr_FilterItemElement = "FilterItem";
+        private const string sr_FilterGroupElement = "FilterGroup";
 
         public string Name { get; set; }
 
         public FilterGroup()
         {
-            m_FilterItems = new List<FilterItem>();
+            m_FilterItems = new List<IFilter>();
         }
 
-        public void AddItem(FilterItem i_NewItemToFilter)
+        public void AddItem(IFilter i_NewItemToFilter)
         {
             m_FilterItems.Add(i_NewItemToFilter);
         }
 
-        public void RemoveItem(FilterItem i_ItemToDelete)
+        public void RemoveItem(IFilter i_ItemToDelete)
         {
             m_FilterItems.Remove(i_ItemToDelete);
         }
@@ -41,7 +43,7 @@ namespace FacebookSmartView
 
         public IEnumerator GetEnumerator()
         {
-            foreach (FilterItem item in m_FilterItems)
+            foreach (IFilter item in m_FilterItems)
             {
                 yield return item;
             }
@@ -49,7 +51,7 @@ namespace FacebookSmartView
 
         public override string ToString()
         {
-            return Name;
+            return "*" + Name + "*";
         }
 
         public XmlSchema GetSchema()
@@ -64,9 +66,20 @@ namespace FacebookSmartView
             i_Reader.ReadStartElement(sr_FilterItemElement);
             while (i_Reader.IsStartElement())
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(FilterItem));
-                m_FilterItems.Add(serializer.Deserialize(i_Reader) as FilterItem);
-                i_Reader.ReadStartElement();
+                XmlSerializer serializer;
+
+                switch (i_Reader.Name)
+                {
+                    case sr_FilterItemElement:
+                        serializer = new XmlSerializer(typeof(FilterItem));
+                        m_FilterItems.Add(serializer.Deserialize(i_Reader) as FilterItem);
+                        i_Reader.ReadStartElement();
+                        break;
+                    case sr_FilterGroupElement:
+                        serializer = new XmlSerializer(typeof(FilterGroup));
+                        m_FilterItems.Add(serializer.Deserialize(i_Reader) as FilterGroup);
+                        break;
+                }
             }
 
             i_Reader.ReadEndElement();
@@ -78,7 +91,7 @@ namespace FacebookSmartView
             i_Writer.WriteAttributeString(sr_GroupNameAttribute, Name);
             i_Writer.WriteStartElement(sr_FilterItemElement);
 
-            foreach (FilterItem item in m_FilterItems)
+            foreach (IFilter item in m_FilterItems)
             {
                 XmlSerializer seralizer = new XmlSerializer(item.GetType());
                 {

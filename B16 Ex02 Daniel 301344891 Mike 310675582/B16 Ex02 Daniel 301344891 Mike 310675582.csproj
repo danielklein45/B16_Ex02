@@ -64,6 +64,7 @@
     <Compile Include="FormLoader.Designer.cs">
       <DependentUpon>FormLoader.cs</DependentUpon>
     </Compile>
+    <Compile Include="IFilter.cs" />
     <Compile Include="ClonePrototype.cs" />
     <Compile Include="LoginLogic.cs" />
     <Compile Include="FilterGroup.cs" />

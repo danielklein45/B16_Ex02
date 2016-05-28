@@ -34,12 +34,10 @@ namespace FacebookSmartView
 
         private void buttonCreateNewGroup_Click(object sender, EventArgs e)
         {
-            FilterGroup newGroup = new FilterGroup();
             FormFilterGroup filterGroupDialog = new FormFilterGroup();
 
-            filterGroupDialog.GroupFilter = newGroup;
             filterGroupDialog.ShowDialog();
-
+            FilterGroup newGroup = filterGroupDialog.GroupFilter;
             if (newGroup.Name != null)
             {
                 PostFilter.AddGroup(newGroup);
